@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css') }}">
+    {% block title %}{% endblock %}
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Блог</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="{{ url_for('main.index') }}">Главная</a>
+        <a class="p-2 text-dark" href="{{ url_for('profile.reg') }}">Регистрация</a>
+        <a class="p-2 text-dark" href="{{ url_for('profile.aut') }}">Авторизация</a>
+        <a class="btn btn-warning" href="{{ url_for('profile.user_profile') }}">Мой Профиль</a>
+        {% if current_user.is_authenticated and current_user.has_admin() %}
+        <a class="btn btn-danger" href="/admin">Админка</a>
+        {% endif %}
+    </nav>
+</div>
+{% block body %}{% endblock %}
+</body>
+</html>

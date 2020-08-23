@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>Авторизация</title>{% endblock %}
+{% block body %}
+<div class="container mt-5">
+    <h1 class="qwe">Авторизация</h1>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.username(class="form-control", placeholder="Имя пользователя" ) }}
+        </div>
+
+        <div class="form-group">
+            {{ form.password(class="form-control", placeholder="Пароль" ) }}
+        </div>
+
+        <div class="form-group">
+            {{ form.remember() }} {{ form.remember.label() }}
+        </div>
+
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+{% endblock %}

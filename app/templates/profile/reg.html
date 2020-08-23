@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>Регистрация</title>{% endblock %}
+{% block body %}
+<div class="container mt-5">
+    <h1 class="qwe">Регистрация</h1>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.username(class="form-control", placeholder="Имя пользователя" ) }}
+            {% for error in form.username.errors %}
+            <small class='Error'>{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.email(class="form-control", placeholder="Email" ) }}
+            {% for error in form.email.errors %}
+            <small class='Error'>{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.password(class="form-control", placeholder="Пароль" ) }}
+            {% for error in form.password.errors %}
+            <small class='Error'>{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.confirm(class="form-control", placeholder="Повтор пароля" ) }}
+            {% for error in form.confirm.errors %}
+            <small class='Error'>{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-success") }}
+    </form>
+</div>
+{% endblock %}

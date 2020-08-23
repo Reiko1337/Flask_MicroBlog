@@ -1,0 +1,10 @@
+Flask_Script==2.0.6
+Flask_Testing==0.8.0
+Flask_SQLAlchemy==2.4.4
+Flask_Admin==1.5.6
+Werkzeug==1.0.1
+Flask_Migrate==2.5.3
+WTForms==2.3.3
+Flask==1.1.2
+Flask_WTF==0.14.3
+Flask_Login==0.5.0

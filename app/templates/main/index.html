@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Главная страница</title>{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Все статьи на сайте</h1>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    {% if articles|length > 0 %}
+    {% for el in articles %}
+    <div class="alert alert-info">
+        <h2>{{ el.title }}</h2>
+        <p>{{ el.intro }}</p>
+        <p><b>Дата: {{ el.date.date() }}</b></p>
+        <p><b>Автор: {{ el.User.username }}</b></p>
+        <a href="{{ url_for('.detail_post', id = el.id) }}" class="btn btn-warning">Детальнее</a>
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <p>У нас еще нет статей на сайте</p>
+    {% endif %}
+</div>
+{% endblock %}

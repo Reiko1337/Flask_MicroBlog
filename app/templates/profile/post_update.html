@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Редактирование: {{ article.title }}</title>{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Редактирование статьи</h1>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <form method="post">
+        {{ form_post.hidden_tag() }}
+        <div class="form-group">
+            {{ form_post.title(class="form-control", placeholder="Заглавие") }}
+        </div>
+        <div class="form-group">
+            {{ form_post.intro(class="form-control", placeholder="Вступление") }}
+        </div>
+        <div class="form-group">
+            {{ form_post.text(class="form-control", placeholder="Текст") }}
+        </div>
+        {{ form_post.submit_add(class="btn btn-success", value = 'Обновить') }}
+    </form>
+</div>
+{% endblock %}

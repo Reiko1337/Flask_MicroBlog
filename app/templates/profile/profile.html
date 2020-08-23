@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}<title>Профиль</title>{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            {% if current_user.is_authenticated and current_user.has_admin() %}
+            <span class="badge badge-danger">Админ</span>
+            {% endif %}
+            <h1>{{ current_user.username }}</h1>
+            <img class="img-thumbnail" src="{{ url_for('.userava') }}" alt="Thumbnail image" width="200"><br>
+            {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{cat}}">{{msg}}</div>
+            {% endfor %}
+            <P></P>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                {{ current_user.email }}
+            </svg>
+            {{ current_user.email }}</P>
+            <a href="{{ url_for('.logout') }}" class="btn btn-danger">Выход</a>
+        </div>
+        <div class="hr">
+            <hr>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype=multipart/form-data action="{{ url_for('.upload') }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Изменить аватарку</label>
+                    {{ form.image(id="exampleFormControlFile1", accept=".png, .jpg", class="form-control-file") }}
+                    {% for error in form.image.errors %}
+                    <small class='Error'>{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-success") }}
+                </div>
+            </form>
+        </div>
+        <div class="hr">
+            <hr>
+        </div>
+        <div class="card-body">
+            <h1>Создание статьи</h1>
+            <form method="post" action="{{ url_for('.post_create') }}">
+                {{ form_post.hidden_tag() }}
+                <div class="form-group">
+                    {{ form_post.title(class="form-control", placeholder="Заглавие" ) }}
+                </div>
+                <div class="form-group">
+                    {{ form_post.intro(class="form-control", placeholder="Вступление" ) }}
+                </div>
+                <div class="form-group">
+                    {{ form_post.text(class="form-control", placeholder="Текст" ) }}
+                </div>
+                {{ form_post.submit_add(class="btn btn-success") }}
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h1>Ваши статьи на сайте</h1>
+            {% if current_user.pr|length > 0 %}
+            {% for el in current_user.pr[::-1] %}
+            <div class="alert alert-info">
+                <h2>{{ el.title }}</h2>
+                <p>{{ el.intro }}</p>
+                <p><b>Дата: {{ el.date.date() }}</b></p>
+                <p><b>Автор: {{ el.User.username }}</b></p>
+                <a href="{{ url_for('main.detail_post', id = el.id) }}" class="btn btn-warning">Детальнее</a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>У вас еще нет статей на сайте</p>
+            {% endif %}
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock %}

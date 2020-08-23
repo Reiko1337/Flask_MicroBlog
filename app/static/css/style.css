@@ -1,0 +1,33 @@
+.Error{
+    color: red;
+}
+
+.flash {padding: 7px;}
+.flash.success {
+         border-radius: .25rem;
+         background: #AEFFC5;
+         margin-bottom: 10px;
+}
+.flash.error {
+         border-radius: .25rem;
+         background: #FF9C9C;
+         margin-bottom: 10px;
+}
+
+.Tab{
+	display:flex;
+}
+.item{
+	flex: 1 auto;
+}
+hr{
+	margin: 0px;
+	border-top: 2px solid rgba(0,0,0, .1);
+
+}
+.hr{ 
+	padding: 0 20px 0 20px;
+}
+.container{
+	word-wrap:break-word;
+}
